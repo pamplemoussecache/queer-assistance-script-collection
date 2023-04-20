@@ -1,0 +1,110 @@
+/* 
+Fonts: Special Elite for headers and Annie Use Your telescope for body
+ */
+
+:root {
+  --font-body: #eeeeee;
+  --color1: #f4b37c;
+  --color2: #924d3d;
+  --color3: #25181b;
+  --color4: #677b4a;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+@font-face {
+  font-family: "Annie Use Your Telescope";
+  src: url("../fonts/Annie Use Your Telescope.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+p,
+li {
+  font-family: "Annie Use Your Telescope", sans-serif;
+  margin-block-end: 0.5em;
+  margin-block-start: 0.5em;
+}
+
+h1 {
+  font-family: "Special Elite", cursive;
+  color: var(--font-body);
+  margin-block-end: unset;
+}
+
+button {
+  background-color: var(--color3);
+  font-family: "Special Elite", cursive;
+  color: var(--font-body);
+  margin: auto;
+  padding: 15px;
+  font-size: 1.2rem;
+  border-style: unset;
+  border-radius: 8px;
+}
+
+button:hover {
+  cursor: pointer;
+  filter: brightness(150%);
+}
+
+.title {
+  background-color: var(--color2);
+  width: 75%;
+  border-radius: 10px;
+  text-align: center;
+  margin: auto;
+}
+
+.page-layout {
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  grid-template-areas: "toolbar" "body";
+  grid-gap: 8px;
+  margin: 0;
+  padding: 0;
+  min-width: fit-content;
+  overflow: hidden;
+  display: grid;
+  background-color: var(--color4);
+}
+
+div {
+  display: grid;
+  height: 100%;
+  width: 100%;
+}
+
+.output {
+  width: 80%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 25% 75%;
+}
+
+.field {
+  grid-column: 1;
+}
+
+.data {
+  grid-column: 2;
+}
+
+.center_link {
+  background-color: var(--color3);
+  color: var(--font-body);
+  margin: auto;
+  padding: 15px;
+  border-radius: 8px;
+}
