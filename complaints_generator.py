@@ -26,7 +26,7 @@ def hatespeech_complaint_generator(num_complaints=1):
     for i in range(num_complaints) :
         print("==========================")
         Complainer().print_stats()    
-        print(f"Complaint: \n\n")
+        print(f"Complaint: \n")
         print(choice([medical_complaint, school_complaint])())
 
 def medical_complaint():
