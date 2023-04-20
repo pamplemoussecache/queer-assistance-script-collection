@@ -9,7 +9,7 @@ def capitalize_first_letter(word):
     return ' '.join(word[0].upper() + word[1:] for word in s.split())
 
 class Complaint:
-    def __init__(self, category=choice(categories), num_sentences=randint(1,5)):
+    def __init__(self, category=choice(categories), num_sentences=randint(1,4)):
         w = WordBank()
         complaint = ""
         category = category
@@ -37,6 +37,7 @@ class Complaint:
             f"is letting a {w.guy} {w.sport_action_verb} on the {w.get_sports_team('female')}",
             f"is allowing a {w.girl} to {w.sport_action_verb} on the {w.get_sports_team('male')}",
             f"is letting a {w.girl} {w.sport_action_verb} on the {w.get_sports_team('male')}",
+            f"is telling students that they can grow up to become professional {choice([w.get_person('community'), w.get_person('school'), w.get_person('hospital')])}s"
         ]
         return choice(sentence_fragments)
     
@@ -114,13 +115,10 @@ class Complaint:
         options = [
             f"Also, {i_feel} that the Attorney General's office should be taking a harder stance {opinion} {target} doing this kind of thing.",
             f"I emailed {target} about my feelings but they were unresponsive.",
-
-            f"My {child} {communicated_to} me that their {target} {action} and {i_feel}.",
-            f"My {child} {communicated_to} me that their {target} {action} and {i_feel} {about_effects}.",
-            f"{i_feel} because my {community_member} told me that their {child}'s {target} {action}.",
-            f"{i_feel} because my {child} {communicated_to} me that their {target} {action}."
+            f"We the parents of this community are {w.get_mood_word()} about the lack of oversight from the {w.get_person('school')}.",
+            f"Is it even legal for {target}s to make that decision without consulting the parents?",
+            f"The {target} also {w.get_effect_fragment('school')}."
             ]
-        
         return choice(options)
 
     def get_punchy_sentence(self):
@@ -130,66 +128,7 @@ class Complaint:
             f"What is the Missouri government going to do about the fact that {}?",
             f"This is a violation of the Missouri state law and I will not stand for it.",
             f"I can't believe that our government is standing for this."
-        ].append(map(capitalize_first_letter + ".", ncte_mo_state_report + states_of_denial))
+        ] + ncte_mo_state_report + states_of_denial
         return choice(sentences)
-    
-
-# def hatespeech_complaint_generator(num_complaints=1):
-#     for i in range(num_complaints) :
-#         print("==========================")
-#         Complainer().print_stats()    
-#         print(f"Complaint: \n")
-#         print(choice([medical_complaint, school_complaint])())
-
-# def medical_complaint():
-#     person = choice(relationships["personal"])
-#     physician = choice(relationships["medical"])
-#     verb = choice(medical_verbs)
-#     object = choice(medical_things)
-#     hospital = choice(mo_hospitals)
-#     personal_details = Complainer()
-#     location = choice(medical_locations)
-#     county = personal_details.address["county"]
-
-#     option1 = f"My {person}'s {physician} {verb} {object}{choice([' to them', ' to some of their patients', ' to children', 'to teenagers', 'to kids over 12', ''])}. I am {choice(['worried about', 'concerned about', 'questioning', 'horrified by'])} the {choice(['longterm damage', 'ethical considerations', 'disregarding of parental wishes', 'legality'])} {choice(['in that decision', 'of this', 'of the policy at this hospital'])}. The {physician} {choice(['practices at','works at', 'is employed at', 'is employed by'])} {hospital}."
-#     option2 = f"A {physician} named {personal_details.first_name} {personal_details.last_name} at {hospital} {choice(['asked me for my pronouns', 'asked what my pronouns were', 'offered ' + choice(['me', f'my {person}']) + ' gender affirming care'])}. This was {choice(['deeply unsettling', 'so unprofessional of them', 'really uncomfortable for me'])} and is {choice(['a violation of the Missouri Constitution', 'against the law', 'not okay', 'horrible to do', 'inappropriate'])}."
-#     option3 = f"My {person}'s {physician}{choice([(' at ' + hospital), (' (' + hospital + ')'), (' ('+ personal_details.first_name + ' ' + personal_details.last_name + ')'), ''])} {choice(['confessed to', 'told', 'said', 'informed'])} them that the {location} {verb} {object} to {choice(['autistic adults who claim to be trans', 'teenagers over 14', 'kids under 16', 'children who have been diagnosed with depression', 'depressed adults', 'teenage boys with autism', 'autistic kids'])}. {choice([f'I have reported it to {county} County but no one has gotten back to us.', (f'My {person} is ' + choice(['worried about', 'concerned about', 'questioning', 'horrified by']) + ' the ' + choice(['longterm damage', 'ethical considerations']) + ' of ' + choice(['these medical interventions', 'this policy']) + choice(['.', ' and so am I.']))])}"
-#     option4 = f"My {person} {personal_details.first_name} {personal_details.last_name}'s {physician}{choice(['', ' (who works at ' + hospital + ')'])} asked them at their last appointment if they wanted {object}. " + choice(["I didn't know where else to report it, but I'm worried.", ('My ' + person + ' would never take ' + object + '. I don\'t know why they asked.'), 'That\'s against the new law, isn\'t it?'])
-
-#     return(choice([option1, option2, option3, option4]))
-
-# def school_complaint():
-#     school_actions = [f"announced that they're allowing transgender kids to {choice(sports_verbs)} as a PE credit", "is telling children they can change their name for roll call to affirm their gender", "is letting boys use the girls changing room", "is allowing girls to use the boys changing room"]
-#     sports = ["soccer", "lacrosse", "bowling"]
-#     coed_sports = ["mountain boarding", "parcour", "gymnastics", "wrestling", "weightlifting", "swimming", "golf"]
-#     boy_sports = ["football", "baseball"]
-#     girl_sports = ["volleyball", "softball"]
-#     personA = Complainer()
-#     personB = Complainer()
-#     county = personA.address["county"]
-
-#     for sport in sports:
-#         for word in words_for_guys:
-#             for sport in (sports + girl_sports):
-#                 school_actions.append(f"is allowing a {word} play on the {choice(['girl', 'women'])}'s {sport} team")
-#             for sport in coed_sports:
-#                 school_actions.append(f"is letting a {word} compete as a {choice(['girl', 'woman'])} on the {sport} team")
-#         for word in words_for_gals:
-#             for sport in (sports + boy_sports):
-#                 school_actions.append(f"is letting a {word} play on the {choice(['guy', 'boy', 'men'])}'s {sport} team")
-#             for sport in coed_sports:
-#                 school_actions.append(f"is allowing a {word} compete as a {choice(['guy', 'boy', 'men'])} on the {sport} team")
-
-#     person = choice(["son", "daughter", "neighbor's kid", "neighbour's daughter", "neighbor's son", "friend's son", "friend's kid"])
-#     teacher = choice(relationships["school"])
-#     action = choice(school_actions)
-#     school = choice(mo_schools)
-
-#     return f"My {person}'s" + choice(['', ' (' + personA.first_name + " " + personA.last_name + ')']) + f" {teacher}" + choice(['', ' (' + personB.first_name + " " + personB.last_name + ')']) + f" {action}. My {person} {choice(['goes to', 'attends'])} {school}{choice(['', ' in '+ county +' County'])}."
-
-
-# hatespeech_complaint_generator(int(sys.argv[1]))
-
-
 
 print(Complaint())
