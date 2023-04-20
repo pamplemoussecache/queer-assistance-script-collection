@@ -145,5 +145,5 @@ mo_hospitals = [
     "Golden Valley Memorial Hospital",
     "Northwest Medical Center",
     "SSM Cardinal Glennon Child Center",
-    "Western Missouri Medical Center"
+    "Western Missouri Medical Center",
 ]
