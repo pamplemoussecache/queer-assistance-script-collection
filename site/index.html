@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head><style type="text/css">
+        @import url(style.css);
+    </style>
+    <link href='http://fonts.googleapis.com/css?family=Annie Use Your Telescope:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Special Elite:400,700' rel='stylesheet' type='text/css'>
+</head>
+<body class="page-layout">
+    <div style="background-color: #292E72; padding: 8px; display: grid; position: relative; width: 100%; height: 100%; grid-area: toolbar; grid-template-rows: 2fr 1fr;">
+        <h1>Want to help out queer and trans folk in Missouri?</h1>
+        <div style="justify-content: flex-start; display: flex;">
+        </div>
+    </div>
+    <div>
+        <button type="button" onclick="document.getElementById('appointmentrequest').scrollIntoView(true);">Stick data in the command line</button>
+        <py-script>
+            from js import document 
+            from pyodide import create_proxy
+            from complaints_generator import hatespeech_complaint_generator
+            
+            def runPython():
+                hatespeech_complaint_generator()
+            
+            function_proxy = create_proxy(runPython)
+            
+            document.getElementById("button").addEventListener("click", function_proxy)
+        </py-script>
+    </div>
+</body>
+</html>
+
+
+<body>
+
+    <button type="button" id="button">run Python</button>
+    
+    
+    
+    </body>

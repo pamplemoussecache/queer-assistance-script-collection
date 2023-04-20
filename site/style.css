@@ -1,0 +1,164 @@
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+@font-face {
+  font-family: 'Annie Use Your Telescope';
+  src: url('../fonts/Annie Use Your Telescope.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Special Elite';
+  src:  url('lato.woff2') format('woff2'),
+        url('lato.woff') format('woff');
+}
+
+body, html{
+  margin:0;
+  padding:0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+p, li {
+  font-family: 'Annie Use Your Telescope', sans-serif;
+  margin-block-end: 0.5em;
+  margin-block-start: 0.5em;
+}
+h2 {
+  font-family:'Special Elite', 'Times New Roman', Times, serif;
+  color: #DD9933;
+}
+h1 {
+  font-family: 'Special Elite', cursive;
+  color: #E4EBBB;
+  margin-block-end: unset;
+}
+sub {
+  font-family: 'Special Elite', sans-serif;
+  color: #E4EBBB;
+}
+button {
+  background-color: #67074E;
+  font-family: 'Special Elite', cursive;
+  color: #ffffff;
+  margin-right: 8px;
+  border-style: unset;
+  border-radius: 8px;
+}
+.page-layout {
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  grid-template-areas: "toolbar" "body";
+  grid-gap: 8px;
+  margin: 0;
+  padding: 0;
+  min-width: fit-content; 
+  overflow: hidden; 
+  display: grid;
+  background-color: #075C56;
+}
+div {
+  display: grid;
+  height: 100%;
+  width: 100%;
+}
+img {
+  border-radius: 8px 8px 0px 0px;
+}
+rect {
+  border-radius: 8px;
+}
+.grid-container {
+display: grid;
+max-width: 90vh;
+min-width: 400px;
+max-height: calc(100vh - 110px);
+justify-self: center;
+align-items: center;
+grid-template-columns: 4fr 3fr;
+grid-gap: 32px;
+grid-template-rows: min-content min-content min-content 1fr min-content;
+grid-template-areas: 
+  'aboutme headshot'
+  'education education'
+  'areas-of-support service-types'
+  'appointment-request appointment-request'
+  'fees fees';
+padding: 16px; 
+color: #ffffff; 
+overflow-x: hidden;
+overflow-y: auto;
+-ms-overflow-style: none;  /* IE and Edge scrollbar hide */
+scrollbar-width: none;  /* Firefox hide */
+grid-area: body;
+}
+.grid-container::-webkit-scrollbar {
+  display: none;
+  }
+.grid-item {
+padding: 16px;
+font-size: 20px;
+text-align: left;
+}
+
+
+input:focus {
+  border: 3px solid #67074E;
+  border-style: outset;
+  background-color: #ffffffff;
+}
+
+input:focus-visible {
+  border: 3px solid #67074E;
+  border-style: outset;
+  background-color: #ffffffff;
+}
+
+input {
+  border: 2px solid #DD9933;
+  border-style: outset;
+  border-radius: 8px;
+  padding: 8px 16px;
+  height: min-content;
+  display: flex;
+  width: unset;
+  background-color: #ffffffbf;
+  font-family: 'Annie Use Your Telescope', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+form {
+  gap: 8px;
+}
+
+textarea:focus {
+  border: 3px solid #67074E;
+  overflow-y: hidden;
+  overflow-x: auto;
+  background-color: #ffffffff;
+}
+
+textarea:focus-visible {
+  border: 3px solid #67074E;
+  padding: 8px 16px;
+  overflow-y: hidden;
+  overflow-x: auto;
+  background-color: #ffffffff;
+}
+
+textarea {
+  width: 100%;
+  height: 150px;
+  padding: 8px 16px;
+  box-sizing: border-box;
+  border-style: outset;
+  border: 2px solid #DD9933;
+  border-radius: 8px;
+  background-color: #ffffffbf;
+  resize: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-family: 'Annie Use Your Telescope', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
