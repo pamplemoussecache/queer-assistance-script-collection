@@ -1,6 +1,6 @@
 "use strict";
 
-const output = document.querySelector(".output");
+const output = document.querySelector(".outputContainer");
 
 const fakeJSONOut = {
   first_name: "Kyle",
@@ -26,7 +26,7 @@ const handlePython = function () {
   //parse JSON into object
 
   //put object information into fields on html
-  const markup = `<p>
+  const markup = `<p class="output">
   <strong class="field">First Name:</strong><span id="first_name" class="data">${data.first_name}</span><br />
   <strong class="field">Last Name:</strong><span id="last_name" class="data">${data.last_name}</span><br />
   <strong class="field">Address:</strong><span id="address" class="data">${data.address.street}</span><br />
