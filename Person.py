@@ -5,6 +5,8 @@ import secrets
 import csv
 from random import randint
 
+from WordBank import WordBank
+
 states = ["MO", "KS", "NE", "IA", "WI"]
 
 def make_email(first_name, last_name):
@@ -41,15 +43,16 @@ def make_phone_number(state="MO"):
 
     return phone_number
 
-missouri_data = list(csv.DictReader(open('Missouri_Zip_Codes_by_County_City.csv')))
+missouri_data = list(csv.DictReader(open('data_sets/Missouri_Zip_Codes_by_County_City.csv')))
 
 class Person:
-    def __init__(self):
+    def __init__(self, role=None):
         self.first_name = names.get_first_name()
         self.last_name = names.get_last_name()
         self.address = {"street": random_address.real_random_address()["address1"]} | secrets.choice(missouri_data)
         self.email = make_email(self.first_name, self.last_name)
         self.phone_number = make_phone_number(secrets.choice(states))
+        self.role = WordBank().get_person("role") if role != None else None
 
     def print_stats(self):
         print(f"First name: {self.first_name}\n")
