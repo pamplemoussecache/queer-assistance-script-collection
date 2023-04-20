@@ -1,1 +1,0 @@
-# queer-assistance-script-collection
