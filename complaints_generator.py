@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-from missouri_data import mo_hospitals, mo_schools
-from Complainer import Complainer
+from data_sets.missouri_data import mo_hospitals, mo_schools
+from Person import Person
 from secrets import choice
 import sys
 
@@ -10,11 +10,59 @@ relationships = {
     "school": ["teacher", "art teacher", "science teacher", "math teacher", "history teacher", "econ teacher", "chemistry teacher", "chem teacher", "principal", "coach"]
 }
 
-words_for_guys = ["boy", "young man", "guy"]
-words_for_gals = ["girl", "young lady", "lady", "young woman"]
-
 medical_verbs = ["prescribed", "is prescribing", "gave", "is giving"]
 medical_things = ["hormones", "estrogen", "estrogen patches", "estrodol", "testosterone", "T", "estrogen shots", "testosterone shots", "testosterone jelly"]
+
+verbs = ["skydive", "scuba dive", "bungee jump", "learn to surf", "climb a mountain", "go zorbing", "take a trapeze class", "take a survival course", "do acroyoga", "learn archery", "take a fencing class", "try parkour", "learn circus arts", "go horseback riding", "learn to juggle", "try paddleboarding", "do tai chi", "take a yoga class", "try aerial silks", "watch TV shows", "play video games", "read comics", "build a sandcastle", "knit a scarf", "write love letters", "try new foods", "explore a city", "attend concerts", "play board games", "watch movies", "write poetry", "attend a stand-up comedy show", "solve puzzles", "paint by numbers", "listen to music", "build with Lego bricks", "collect stamps", "play with slime", "make balloon animals", "participate in a flash mob", "collect rocks", "build the Statue of Liberty with lincoln logs"]
+school_classes = ["math", "science", "biology", "physics", "chemistry", "earth science", "environmental science", "zoology", "botany", "anatomy", "physiology", "genetics", "ecology", "meteorology", "oceanography", "geology", "astronomy", "statistics", "calculus", "algebra", "geometry", "trigonometry", "differential equations", "economics", "macroeconomics", "microeconomics", "history", "geography", "world history", "US history", "government", "political science", "psychology", "sociology", "anthropology", "philosophy", "English literature", "creative writing", "French", "linguistics", "computer science", "PE"]
+sports = ["bobsledding", "synchronized swimming", "dragon boat racing", "water polo", "mountain biking", "snowboarding", "archery", "wingsuit flying", "ice climbing", "extreme ironing", "yachting", "sailing", "powerlifting", "strongman", "dodgeball", "spearfishing", "wakeboarding", "kitesurfing", "flyboarding", "parkour", "rock climbing", "obstacle course racing", "roller derby", "underwater hockey", "sled dog racing"]
+sports_descriptors = {
+    "male": ["boy's", "boys", "boys'", "men's", "mens", "guys', 'guys's, 'guys'"],
+    "female": ["girls'", "girl's", "girls", "women's", "womens", "ladies", "ladys", "ladies'", "ladies's"],
+    "generic": ["competitive", "varsity", "junior varsity"]}
+words_for_guys = ["boy", "young man", "guy"]
+words_for_girls = ["girl", "young lady", "lady", "young woman"]
+sport_action_verbs = ["play", "compete", "participate"]
+mood_words = ["worried", "excited", "afraid", "angry", "concerned", "ecstatic", "devastated", "furious", "terrified", "elated", "enraged", "overjoyed", "heartbroken", "livid", "petrified", "thrilled", "indignant", "horrified", "exhilarated", "despairing", "incensed"]
+    
+class WordBank :
+    def __init__(self):
+        child = Person()
+        authority = Person()
+        verb = choice(verbs)
+        school_class = choice(school_classes)
+        sport = choice(sports)
+        sports_descriptor = choice(sports_descriptors)
+        school_class = choice(school_classes)
+        verb_phrase = choice(verbs)
+        guy = choice(words_for_guys)
+        girl = choice(words_for_girls)
+        sport_action_verb = choice(sport_action_verbs)
+
+    def get_mood_word():
+        return choice(mood_words)
+    
+    def get_sports_team(gender=choice(["male", "female"]), sport=choice(sports)):
+        gendered_adj = choice(sports_descriptors[gender])
+        adj = choice(f" {sports_descriptors['generic']} " + [" "])
+
+        return f"{gendered_adj}{adj}{sport} team"
+
+
+def gen_school_predicate(w=WordBank()):
+    sentence_fragments = [
+        f"announced that they're allowing transgender kids {w.verb} to as a {w.school_class} credit",
+        f"is allowing a {w.guy} to {w.sport_action_verb} on the {w.get_sports_team('female')}",
+        f"is letting a {w.guy} {w.sport_action_verb} on the {w.get_sports_team('female')}",
+        f"is allowing a {w.girl} to {w.sport_action_verb} on the {w.get_sports_team('male')}",
+        f"is letting a {w.girl} {w.sport_action_verb} on the {w.get_sports_team('male')}",
+    ]
+    return choice(sentence_fragments)
+
+def outrage_clause(w=WordBank()):
+    sentence_fragments = [
+        f"and I'm {w.get_mood_word()}{choice([' and {w.get_mood_word()', ''])} "])}"
+    ]
 
 where = ["my"]
 for person in relationships["personal"]:
@@ -47,9 +95,9 @@ def medical_complaint():
     return(choice([option1, option2, option3, option4]))
 
 def school_complaint():
-    school_actions = ["announced that they're allowing transgender kids to use whatever bathroom they want", "is telling children they can change their name for roll call to affirm their gender", "is letting boys use the girls changing room", "is allowing girls to use the boys changing room"]
+    school_actions = [f"announced that they're allowing transgender kids to {choice(sports_verbs)} as a PE credit", "is telling children they can change their name for roll call to affirm their gender", "is letting boys use the girls changing room", "is allowing girls to use the boys changing room"]
     sports = ["soccer", "lacrosse", "bowling"]
-    coed_sports = ["tennis", "track", "gymnastics", "wrestling", "weightlifting", "swimming", "golf"]
+    coed_sports = ["mountain boarding", "parcour", "gymnastics", "wrestling", "weightlifting", "swimming", "golf"]
     boy_sports = ["football", "baseball"]
     girl_sports = ["volleyball", "softball"]
     personA = Complainer()
