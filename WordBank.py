@@ -57,15 +57,6 @@ class WordBank :
         guy = choice(words_for_guys)
         girl = choice(words_for_girls)
         sport_action_verb = choice(sport_action_verbs)
-
-    def get_mood_word():
-        return choice(mood_words)
-    
-    def get_sports_team(gender=choice(["male", "female"]), sport=choice(sports)):
-        gendered_adj = choice(sports_descriptors[gender])
-        adj = choice(f" {sports_descriptors['generic']} " + [" "])
-
-        return f"{gendered_adj}{adj}{sport} team"
     
     opinion_words = ["against", "in support of"]
     
@@ -87,15 +78,24 @@ class WordBank :
     verbs = {
         "action": ["skydive", "scuba dive", "bungee jump", "learn to surf", "climb a mountain", "go zorbing", "take a trapeze class", "take a survival course", "do acroyoga", "learn archery", "take a fencing class", "try parkour", "learn circus arts", "go horseback riding", "learn to juggle", "try paddleboarding", "do tai chi", "take a yoga class", "try aerial silks", "watch TV shows", "play video games", "read comics", "build a sandcastle", "knit a scarf", "write love letters", "try new foods", "explore a city", "attend concerts", "play board games", "watch movies", "write poetry", "attend a stand-up comedy show", "solve puzzles", "paint by numbers", "listen to music", "build with Lego bricks", "collect stamps", "play with slime", "make balloon animals", "participate in a flash mob", "collect rocks", "build the Statue of Liberty with lincoln logs"], 
         "communication": ["told", "confessed to", 'said', 'informed', "reported to", "mentioned to", "shared with"]}
-
-    def get_person(category):
-        return choice(persons[category])
     
-    def get_location(category):
+    def get_mood_word():
+        return choice(mood_words)
+    
+    def get_sports_team(gender=choice(["male", "female"]), sport=choice(sports)):
+        gendered_adj = choice(sports_descriptors[gender])
+        adj = choice(f" {sports_descriptors['generic']} " + [" "])
+
+        return f"{gendered_adj}{adj}{sport} team"
+
+    def get_person(self, category):
+        return choice(self.persons[category])
+    
+    def get_location(self, category):
         return choice(locations[category])
     
-    def get_verb(type_of_verb):
-        return choice(verbs[type_of_verb])
+    def get_verb(self, type_of_verb):
+        return choice(self.verbs[type_of_verb])
     
-    def get_stance():
-        return choice(opinion_words)
+    def get_stance(self):
+        return choice(self.opinion_words)
