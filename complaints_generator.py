@@ -3,7 +3,6 @@ from data_sets import mo_schools, mo_hospitals, states_of_denial, ncte_mo_state_
 from Person import Person
 from secrets import choice
 from random import randint, sample
-import sys
 from WordBank import WordBank, location, person, categories
 
 def capitalize_first_letter(word):
