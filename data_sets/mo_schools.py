@@ -1,4 +1,4 @@
-mo_schools = [
+MO_SCHOOLS = [
     "Adair County R-I High School",
     "Adair County R-II High School",
     "Kirksville High School",

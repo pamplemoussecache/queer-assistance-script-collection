@@ -2,57 +2,65 @@
 from random import randint, sample
 from secrets import choice
 
-from data_sets import mo_hospitals, mo_schools, ncte_mo_state_report, states_of_denial
+from data_sets import MO_HOSPITALS, MO_SCHOOLS, NCTE_MO_STATE_REPORT, STATES_OF_DENIAL
 from Person import Person
-from WordBank import WordBank, categories, location, person
+from WordBank import WordBank, categories
 
 
-def capitalize_first_letter(word):
-    return " ".join(word[0].upper() + word[1:] for word in s.split())
+def capitalize_first_letter(phrase):
+    phrase_words = phrase.split()
+    capitalized_phrase = phrase_words[0][0].upper() + phrase_words[0][1:]
+    for w in phrase_words[1:]:
+        capitalized_phrase += f" {w}"
+    return capitalized_phrase
 
 
 class Complaint:
-    def __init__(self, category=choice(categories), num_sentences=randint(1, 4)):
-        w = WordBank()
-        complaint = ""
-        category = category
+    def __init__(self, category=None, num_sentences=None):
+        self.w = WordBank()
+        self.complaint = ""
+        self.num_sentences = num_sentences or randint(1, 4)
+        self.category = category or choice(categories)
+        self.child = "my child"  # TODO: randomize
 
-        for i in range(num_sentences):
-            if num_sentences == 1:
-                complaint += self.get_punchy_sentence()
+        for i in range(self.num_sentences):
+            if self.num_sentences == 1:
+                self.complaint += capitalize_first_letter(self.get_punchy_sentence())
             elif i == 0:
-                complaint += self.get_starting_sentence(category, w)
-            elif i == (num_sentences - 1):
-                complaint += self.get_ending_sentence(category, w)
+                self.complaint += capitalize_first_letter(self.get_starting_sentence())
+            elif i == (self.num_sentences - 1):
+                self.complaint += " " + capitalize_first_letter(self.get_end_sentence())
             else:
-                complaint += self.get_sentence(category, w)
+                self.complaint += " " + capitalize_first_letter(self.get_sentence())
 
     def __str__(self):
         return f"{self.complaint}"
 
-    def get_mood_fragment(w=WordBank()):
+    def get_mood_fragment(self):
+        w = self.w
+        second_mood = f" and {w.get_mood_word()}"
         return (
-            choice(["I am", "I'm"])
-            + f" {w.get_mood_word()}{choice([format(' and %s',w.get_mood_word()), ''])}"
+            choice(["I am", "I'm"]) + f" {w.get_mood_word()}{choice([second_mood, ''])}"
         )
 
     def get_school_predicate(self):
+        w = self.w
         sentence_fragments = [
-            f"announced that they're allowing transgender kids {w.verb} to as a {w.school_class} credit",
-            f"is allowing a {w.guy} to {w.sport_action_verb} on the {w.get_sports_team('female')}",
-            f"is letting a {w.guy} {w.sport_action_verb} on the {w.get_sports_team('female')}",
-            f"is allowing a {w.girl} to {w.sport_action_verb} on the {w.get_sports_team('male')}",
-            f"is letting a {w.girl} {w.sport_action_verb} on the {w.get_sports_team('male')}",
-            f"is telling students that they can grow up to become professional {choice([w.get_person('community'), w.get_person('school'), w.get_person('hospital')])}s",
+            f"announced that they're allowing transgender kids to {w.action} as a {w.school_class} credit",
+            f"decided to let a {w.guy} to {w.sport_action_verb} on the {w.get_sports_team('female')}",
+            f"announced that {w.guy}s can {w.sport_action_verb} on the {w.get_sports_team('female')}",
+            f"decided to allow a {w.girl} {w.sport_action_verb} on the {w.get_sports_team('male')}",
+            f"told students that they can grow up to become professional {choice([w.get_person('community'), w.get_person('school'), w.get_person('medical')])}s",
         ]
         return choice(sentence_fragments)
 
-    def get_effect_fragment(self, category=choice(["school", "medical"])):
+    def get_effect_fragment(self, category=None):
+        category = category or choice(["school", "medical"])
         w = self.w
         sentence_fragments = [
             f"about the level of communication between staff and parents",
             f"about the lack of diversity in the {w.get_location(category)}'s curriculum",
-            f"about the accessibility of the {w.w.get_location(category)}'s facilities",
+            f"about the accessibility of the {w.get_location(category)}'s facilities",
             f"about the level of support provided for {w.get_person(category)}s with disabilities",
             f"about the adequacy of the {w.get_location(category)}'s safety measures",
             f"about the impact of the {w.get_location(category)}'s policies on mental health",
@@ -92,9 +100,9 @@ class Complaint:
         communicated_to = w.get_verb("communication")
         child = self.child
         community_member = w.get_person("community")
-        target = choice([w.get_person("school"), w.get_location("school")])
-        action = self.get_school_predicate(w)
-        i_feel = self.get_mood_fragment(w)
+        target = w.get_person("school")
+        action = self.get_school_predicate()
+        i_feel = self.get_mood_fragment()
         about_effects = self.get_effect_fragment("school")
 
         options = [
@@ -108,36 +116,41 @@ class Complaint:
 
     def get_sentence(self):
         w = self.w
-        communicated_to = w.get_verb("communication")
-        child = self.child
-        target = self.target
-        community_member = w.get_person("community")
         target = choice([w.get_person("school"), w.get_location("school")])
-        action = self.get_school_predicate(w)
-        i_feel = self.get_mood_fragment(w)
-        about_effects = self.get_effect_fragment("school")
-        opinion = w.get_opinion()
+        i_feel = self.get_mood_fragment()
+        opinion = w.get_stance()
 
         options = [
-            f"Also, {i_feel} that the Attorney General's office should be taking a harder stance {opinion} {target} doing this kind of thing.",
+            f"Also, {i_feel} that the Attorney General's office isn't taking a stronger stance {opinion} {target}s doing this kind of thing.",
             f"I emailed {target} about my feelings but they were unresponsive.",
             f"We the parents of this community are {w.get_mood_word()} about the lack of oversight from the {w.get_person('school')}.",
-            f"Is it even legal for {target}s to make that decision without consulting the parents?",
-            f"The {target} also {w.get_effect_fragment('school')}.",
+            f"Is it even legal for {target}s to make that decision without consulting the {w.get_person('community')}s?",
+            f"The {target} has also {self.get_school_predicate()}.",
         ]
         return choice(options)
 
+    def get_end_sentence(self):
+        w = self.w
+        sentences = [
+            f"Did you know that {choice(NCTE_MO_STATE_REPORT)}?",
+            f"I expect your call at {w.complainer.phone_number}.",
+            f"What is the Missouri government going to do about the fact that {w.get_person('child')} are {w.get_verb('action')}?",
+            f"This is a violation of the Missouri state law and I will not stand for it.",
+            f"I can't believe that our government is standing for this.",
+        ] + NCTE_MO_STATE_REPORT
+        return choice(sentences)
+
     def get_punchy_sentence(self):
+        w = self.w
         sentences = (
             [
-                f"Did you know that {choice(ncte_mo_state_report)}?",
-                f"I expect your call at {w.complainer.phone_number}.",
-                f"What is the Missouri government going to do about the fact that?",
+                f"Did you know that {choice(NCTE_MO_STATE_REPORT)}?",
+                f"What is the Missouri government going to do about the fact that {w.get_person('child')} are {w.get_verb('action')}?",
                 f"This is a violation of the Missouri state law and I will not stand for it.",
                 f"I can't believe that our government is standing for this.",
             ]
-            + ncte_mo_state_report
-            + states_of_denial
+            + NCTE_MO_STATE_REPORT
+            + STATES_OF_DENIAL
         )
         return choice(sentences)
 
