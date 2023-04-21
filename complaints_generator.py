@@ -128,19 +128,16 @@ class Complaint:
             f"The {target} has also {self.get_school_predicate()}.",
         ]
         return choice(options)
-    
+
     def get_end_sentence(self):
         w = self.w
-        sentences = (
-            [
-                f"Did you know that {choice(NCTE_MO_STATE_REPORT)}?",
-                f"I expect your call at {w.complainer.phone_number}.",
-                f"What is the Missouri government going to do about the fact that {w.get_person('child')} are {w.get_verb('action')}?",
-                f"This is a violation of the Missouri state law and I will not stand for it.",
-                f"I can't believe that our government is standing for this.",
-            ]
-            + NCTE_MO_STATE_REPORT
-        )
+        sentences = [
+            f"Did you know that {choice(NCTE_MO_STATE_REPORT)}?",
+            f"I expect your call at {w.complainer.phone_number}.",
+            f"What is the Missouri government going to do about the fact that {w.get_person('child')} are {w.get_verb('action')}?",
+            f"This is a violation of the Missouri state law and I will not stand for it.",
+            f"I can't believe that our government is standing for this.",
+        ] + NCTE_MO_STATE_REPORT
         return choice(sentences)
 
     def get_punchy_sentence(self):

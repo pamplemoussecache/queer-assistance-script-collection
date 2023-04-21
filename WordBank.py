@@ -304,6 +304,6 @@ class WordBank:
 
     def get_stance(self):
         return choice(opinion_words)
-    
+
     def get_specific_location(self, location):
         return choice(MO_HOSPITALS if location == "hospital" else MO_SCHOOLS)
