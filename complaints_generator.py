@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
-from data_sets import mo_schools, mo_hospitals, states_of_denial, ncte_mo_state_report
-from Person import Person
-from secrets import choice
 from random import randint, sample
-from WordBank import WordBank, location, person, categories
+from secrets import choice
+
+from data_sets import mo_hospitals, mo_schools, ncte_mo_state_report, states_of_denial
+from Person import Person
+from WordBank import WordBank, categories, location, person
+
 
 def capitalize_first_letter(word):
-    return ' '.join(word[0].upper() + word[1:] for word in s.split())
+    return " ".join(word[0].upper() + word[1:] for word in s.split())
+
 
 class Complaint:
-    def __init__(self, category=choice(categories), num_sentences=randint(1,4)):
+    def __init__(self, category=choice(categories), num_sentences=randint(1, 4)):
         w = WordBank()
         complaint = ""
         category = category
@@ -25,11 +28,14 @@ class Complaint:
                 complaint += self.get_sentence(category, w)
 
     def __str__(self):
-        return f"{self.complaint}"        
+        return f"{self.complaint}"
 
     def get_mood_fragment(w=WordBank()):
-        return choice(['I am', 'I\'m']) + f" {w.get_mood_word()}{choice([format(' and %s',w.get_mood_word()), ''])}"
-    
+        return (
+            choice(["I am", "I'm"])
+            + f" {w.get_mood_word()}{choice([format(' and %s',w.get_mood_word()), ''])}"
+        )
+
     def get_school_predicate(self):
         sentence_fragments = [
             f"announced that they're allowing transgender kids {w.verb} to as a {w.school_class} credit",
@@ -37,10 +43,10 @@ class Complaint:
             f"is letting a {w.guy} {w.sport_action_verb} on the {w.get_sports_team('female')}",
             f"is allowing a {w.girl} to {w.sport_action_verb} on the {w.get_sports_team('male')}",
             f"is letting a {w.girl} {w.sport_action_verb} on the {w.get_sports_team('male')}",
-            f"is telling students that they can grow up to become professional {choice([w.get_person('community'), w.get_person('school'), w.get_person('hospital')])}s"
+            f"is telling students that they can grow up to become professional {choice([w.get_person('community'), w.get_person('school'), w.get_person('hospital')])}s",
         ]
         return choice(sentence_fragments)
-    
+
     def get_effect_fragment(self, category=choice(["school", "medical"])):
         w = self.w
         sentence_fragments = [
@@ -67,7 +73,7 @@ class Complaint:
             f"by the lack of communication from the {w.get_location(category)} on this decision",
             f"at the thought of inadequate resources for {w.get_person(category)}s",
             f"at the idea of this increasing the amount of confusing bureaucracy at the {w.get_location(category)}",
-            f"at the thought of {w.get_person(category)}s not receiving proper {'instructional' if category == "school" else "medical"} attention",
+            f'at the thought of {w.get_person(category)}s not receiving proper {"instructional" if category == "school" else "medical"} attention',
             f"at the thought of outdated equipment and technology at the school",
             f"by the lack of transparency in decision-making processes at the {w.get_location(category)}",
             f"by the potential dangers of instituting this policy given the limited access to mental health resources at the {w.get_location(category)}",
@@ -75,9 +81,9 @@ class Complaint:
             f"at the thought of inadequate facilities for {w.get_person(category)}s",
             f"by the lack of diversity and inclusivity at the {w.get_location(category)}",
             f"at the thought of resulting bullying and harassment from {w.get_person(category)}s potentially going unaddressed",
-            f"at the thought of budget cuts affecting quality of {"education" if category == "school" else "care"}",
+            f'at the thought of budget cuts affecting quality of {"education" if category == "school" else "care"}',
             f"at the thought of inadequate accommodations for {w.get_person(category)}s with disabilities",
-            f"at the prospect of a high {w.get_person(category)} turnover rate at the {w.get_location(category)} as a result"
+            f"at the prospect of a high {w.get_person(category)} turnover rate at the {w.get_location(category)} as a result",
         ]
         return choice(sentence_fragments)
 
@@ -86,7 +92,7 @@ class Complaint:
         communicated_to = w.get_verb("communication")
         child = self.child
         community_member = w.get_person("community")
-        target = choice([w.get_person('school'), w.get_location('school')])
+        target = choice([w.get_person("school"), w.get_location("school")])
         action = self.get_school_predicate(w)
         i_feel = self.get_mood_fragment(w)
         about_effects = self.get_effect_fragment("school")
@@ -96,17 +102,17 @@ class Complaint:
             f"{child} {communicated_to} me that their {target} {action} and {i_feel}.",
             f"{child} {communicated_to} me that their {target} {action} and {i_feel} {about_effects}.",
             f"{i_feel} because my {community_member} told me that {child}'s {target} {action}.",
-            f"{i_feel} because {child} {communicated_to} me that the {target} {action}."
-            ]
+            f"{i_feel} because {child} {communicated_to} me that the {target} {action}.",
+        ]
         return choice(options)
-    
+
     def get_sentence(self):
         w = self.w
         communicated_to = w.get_verb("communication")
         child = self.child
         target = self.target
         community_member = w.get_person("community")
-        target = choice([w.get_person('school'), w.get_location('school')])
+        target = choice([w.get_person("school"), w.get_location("school")])
         action = self.get_school_predicate(w)
         i_feel = self.get_mood_fragment(w)
         about_effects = self.get_effect_fragment("school")
@@ -117,18 +123,23 @@ class Complaint:
             f"I emailed {target} about my feelings but they were unresponsive.",
             f"We the parents of this community are {w.get_mood_word()} about the lack of oversight from the {w.get_person('school')}.",
             f"Is it even legal for {target}s to make that decision without consulting the parents?",
-            f"The {target} also {w.get_effect_fragment('school')}."
-            ]
+            f"The {target} also {w.get_effect_fragment('school')}.",
+        ]
         return choice(options)
 
     def get_punchy_sentence(self):
-        sentences = [
-            f"Did you know that {choice(ncte_mo_state_report)}?",
-            f"I expect your call at {w.complainer.phone_number}.",
-            f"What is the Missouri government going to do about the fact that {}?",
-            f"This is a violation of the Missouri state law and I will not stand for it.",
-            f"I can't believe that our government is standing for this."
-        ] + ncte_mo_state_report + states_of_denial
+        sentences = (
+            [
+                f"Did you know that {choice(ncte_mo_state_report)}?",
+                f"I expect your call at {w.complainer.phone_number}.",
+                f"What is the Missouri government going to do about the fact that?",
+                f"This is a violation of the Missouri state law and I will not stand for it.",
+                f"I can't believe that our government is standing for this.",
+            ]
+            + ncte_mo_state_report
+            + states_of_denial
+        )
         return choice(sentences)
+
 
 print(Complaint())
