@@ -29,8 +29,9 @@
     </p>
     <div class="python">
       <py-config>
+        packages = ["random_address","names"]
         [[fetch]]
-        files = ["complaints_generator.py","data_sets/missouri_data.py","data_sets/missouri_school_list.py","Person.py"]
+        files = ["complaints_generator.py","data_sets/mo_hospitals.py","data_sets/mo_schools.py","data_sets/ncte_mo_state_report.py","data_sets/states_of_denial.py","data_sets/__init__.py","Person.py"]
       </py-config>
       <py-script>  
         from complaints_generator import hatespeech_complaint_generator
