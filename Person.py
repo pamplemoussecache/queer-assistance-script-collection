@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 import csv
-import secrets
+from secrets import choice
 from random import randint
 
 import names
 import random_address
 
-states = ["MO", "KS", "NE", "IA", "WI"]
+from WordBank import WordBank
+from data_sets import categories, states
 
 
 def make_email(first_name, last_name):
@@ -37,7 +38,7 @@ def make_phone_number(state="MO"):
         "WI": ["262", "274", "414", "353", "608", "715", "534", "920"],
     }
 
-    phone_number = secrets.choice(area_codes[state])
+    phone_number = choice(area_codes[state])
 
     for i in range(7):
         phone_number += str(randint(0, 9))
@@ -51,15 +52,31 @@ missouri_data = list(
 
 
 class Person:
-    def __init__(self, role=None):
+    def __init__(self, role_type=None):
+        self.word_bank = WordBank()
         self.first_name = names.get_first_name()
         self.last_name = names.get_last_name()
         self.address = {
             "street": random_address.real_random_address()["address1"]
-        } | secrets.choice(missouri_data)
+        } | choice(missouri_data)
         self.email = make_email(self.first_name, self.last_name)
-        self.phone_number = make_phone_number(secrets.choice(states))
-        self.role = None  # TODO fix this
+        self.phone_number = make_phone_number(choice(states))
+        self.role = self.assign_role(role_type)
+
+    def assign_role(self, role_type=None, pronoun="my"):
+        role_type = role_type or choice(categories)
+        word_bank = self.word_bank
+        
+        optionA = f"{pronoun}"
+        optionB = f"the {word_bank.get_person(role_type)} of {pronoun}"
+        
+        for i in range(randint(3)):
+            optionA += f" {word_bank.get_person()}'s"
+            optionB += f" {word_bank.get_person()}"
+        
+        optionA += f" {word_bank.get_person(role_type)}"
+
+        return choice([optionA, optionB])
 
     def print_stats(self):
         print(f"First name: {self.first_name}\n")

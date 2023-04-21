@@ -18,23 +18,24 @@ def capitalize_first_letter(phrase):
 class Complaint:
     def __init__(self, category=None, num_sentences=None):
         self.w = WordBank()
-        self.complaint = ""
+        self.complainer = self.w.complainer()
+        self.complaint_text = ""
         self.num_sentences = num_sentences or randint(1, 4)
         self.category = category or choice(categories)
         self.child = "my child"  # TODO: randomize
 
         for i in range(self.num_sentences):
             if self.num_sentences == 1:
-                self.complaint += capitalize_first_letter(self.get_punchy_sentence())
+                self.complaint_text += capitalize_first_letter(self.get_punchy_sentence())
             elif i == 0:
-                self.complaint += capitalize_first_letter(self.get_starting_sentence())
+                self.complaint_text += capitalize_first_letter(self.get_starting_sentence())
             elif i == (self.num_sentences - 1):
-                self.complaint += " " + capitalize_first_letter(self.get_end_sentence())
+                self.complaint_text += " " + capitalize_first_letter(self.get_end_sentence())
             else:
-                self.complaint += " " + capitalize_first_letter(self.get_sentence())
+                self.complaint_text += " " + capitalize_first_letter(self.get_sentence())
 
     def __str__(self):
-        return f"{self.complaint}"
+        return f"{self.complaint_text}"
 
     def get_mood_fragment(self):
         w = self.w
