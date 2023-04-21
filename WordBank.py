@@ -293,7 +293,9 @@ class WordBank:
     def get_mood_word():
         return choice(mood_words)
 
-    def get_sports_team(gender=choice(["male", "female"]), sport=choice(sports)):
+    def get_sports_team(gender=None, sport=None):
+        gender = gender or choice(["male", "female"])
+        sport  = sport or choice(sports)
         gendered_adj = choice(sports_descriptors[gender])
         adj = choice(f" {sports_descriptors['generic']} " + [" "])
 

@@ -8,14 +8,15 @@ from WordBank import WordBank, categories, location, person
 
 
 def capitalize_first_letter(word):
-    return " ".join(word[0].upper() + word[1:] for word in s.split())
+    return " ".join(word.title() for word in s.split())
 
 
 class Complaint:
-    def __init__(self, category=choice(categories), num_sentences=randint(1, 4)):
+    def __init__(self, category=None, num_sentences=None):
         w = WordBank()
         complaint = ""
-        category = category
+        num_sentences = num_sentences or randint(1, 4)
+        category = category or choice(categories)
 
         for i in range(num_sentences):
             if num_sentences == 1:
@@ -30,7 +31,8 @@ class Complaint:
     def __str__(self):
         return f"{self.complaint}"
 
-    def get_mood_fragment(w=WordBank()):
+    def get_mood_fragment(w=None):
+        w = w or WordBank()
         return (
             choice(["I am", "I'm"])
             + f" {w.get_mood_word()}{choice([format(' and %s',w.get_mood_word()), ''])}"
@@ -47,7 +49,8 @@ class Complaint:
         ]
         return choice(sentence_fragments)
 
-    def get_effect_fragment(self, category=choice(["school", "medical"])):
+    def get_effect_fragment(self, category=None):
+        category = category or choice(["school", "medical"])
         w = self.w
         sentence_fragments = [
             f"about the level of communication between staff and parents",
