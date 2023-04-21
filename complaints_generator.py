@@ -101,13 +101,12 @@ class Complaint:
         target = choice([w.get_person("school"), w.get_location("school")])
         action = self.get_school_predicate()
         i_feel = self.get_mood_fragment()
-        # TODO fix get_effect_fragment
-        # about_effects = self.get_effect_fragment("school")
+        about_effects = self.get_effect_fragment("school")
 
         options = [
             f"{child} {communicated_to} me that their {target} {action}.",
             f"{child} {communicated_to} me that their {target} {action} and {i_feel}.",
-            # f"{child} {communicated_to} me that their {target} {action} and {i_feel} {about_effects}.",
+            f"{child} {communicated_to} me that their {target} {action} and {i_feel} {about_effects}.",
             f"{i_feel} because my {community_member} told me that {child}'s {target} {action}.",
             f"{i_feel} because {child} {communicated_to} me that the {target} {action}.",
         ]
@@ -121,7 +120,7 @@ class Complaint:
         target = choice([w.get_person("school"), w.get_location("school")])
         action = self.get_school_predicate()
         i_feel = self.get_mood_fragment()
-        # about_effects = self.get_effect_fragment("school")
+        about_effects = self.get_effect_fragment("school")
         opinion = w.get_stance()
 
         options = [
@@ -129,7 +128,7 @@ class Complaint:
             f"I emailed {target} about my feelings but they were unresponsive.",
             f"We the parents of this community are {w.get_mood_word()} about the lack of oversight from the {w.get_person('school')}.",
             f"Is it even legal for {target}s to make that decision without consulting the parents?",
-            # f"The {target} also {w.get_effect_fragment('school')}.",
+            f"The {target} also {self.get_effect_fragment('school')}.",
         ]
         return choice(options)
 
