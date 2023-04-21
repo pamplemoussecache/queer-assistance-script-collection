@@ -205,7 +205,7 @@ persons = {
 }
 for school_class in sample(list(school_classes), 5):
     persons["school"].append(f"{school_class} teacher")
-    
+
 # TODO: Fix
 # for category in persons:
 #     for person in category:
