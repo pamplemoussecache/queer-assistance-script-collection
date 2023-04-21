@@ -116,13 +116,8 @@ class Complaint:
 
     def get_sentence(self):
         w = self.w
-        communicated_to = w.get_verb("communication")
-        child = self.child
-        community_member = w.get_person("community")
         target = choice([w.get_person("school"), w.get_location("school")])
-        action = self.get_school_predicate()
         i_feel = self.get_mood_fragment()
-        about_effects = self.get_effect_fragment("school")
         opinion = w.get_stance()
 
         options = [
@@ -138,11 +133,11 @@ class Complaint:
         w = self.w
         sentences = (
             [
-                f" Did you know that {choice(NCTE_MO_STATE_REPORT)}?",
-                f" I expect your call at {w.complainer.phone_number}.",
-                f" What is the Missouri government going to do about the fact that {w.get_person('child')} are {w.get_verb('action')}?",
-                f" This is a violation of the Missouri state law and I will not stand for it.",
-                f" I can't believe that our government is standing for this.",
+                f"Did you know that {choice(NCTE_MO_STATE_REPORT)}?",
+                f"I expect your call at {w.complainer.phone_number}.",
+                f"What is the Missouri government going to do about the fact that {w.get_person('child')} are {w.get_verb('action')}?",
+                f"This is a violation of the Missouri state law and I will not stand for it.",
+                f"I can't believe that our government is standing for this.",
             ]
             + NCTE_MO_STATE_REPORT
         )
@@ -152,11 +147,10 @@ class Complaint:
         w = self.w
         sentences = (
             [
-                f" Did you know that {choice(NCTE_MO_STATE_REPORT)}?",
-                f" I expect your call at {w.complainer.phone_number}.",
-                f" What is the Missouri government going to do about the fact that {w.get_person('child')} are {w.get_verb('action')}?",
-                f" This is a violation of the Missouri state law and I will not stand for it.",
-                f" I can't believe that our government is standing for this.",
+                f"Did you know that {choice(NCTE_MO_STATE_REPORT)}?",
+                f"What is the Missouri government going to do about the fact that {w.get_person('child')} are {w.get_verb('action')}?",
+                f"This is a violation of the Missouri state law and I will not stand for it.",
+                f"I can't believe that our government is standing for this.",
             ]
             + NCTE_MO_STATE_REPORT
             + STATES_OF_DENIAL
