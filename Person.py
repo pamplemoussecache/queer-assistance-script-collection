@@ -6,7 +6,6 @@ from random import randint
 import names
 import random_address
 
-
 states = ["MO", "KS", "NE", "IA", "WI"]
 
 

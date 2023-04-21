@@ -35,10 +35,9 @@ class Complaint:
 
     def get_mood_fragment(self):
         w = self.w
-        second_mood = f' and {w.get_mood_word()}'
+        second_mood = f" and {w.get_mood_word()}"
         return (
-            choice(["I am", "I'm"])
-            + f" {w.get_mood_word()}{choice([second_mood, ''])}"
+            choice(["I am", "I'm"]) + f" {w.get_mood_word()}{choice([second_mood, ''])}"
         )
 
     def get_school_predicate(self):
@@ -103,7 +102,7 @@ class Complaint:
         action = self.get_school_predicate()
         i_feel = self.get_mood_fragment()
         # TODO fix get_effect_fragment
-        # about_effects = self.get_effect_fragment("school") 
+        # about_effects = self.get_effect_fragment("school")
 
         options = [
             f"{child} {communicated_to} me that their {target} {action}.",
@@ -148,7 +147,6 @@ class Complaint:
             + STATES_OF_DENIAL
         )
         return choice(sentences)
-
 
 
 print(Complaint())

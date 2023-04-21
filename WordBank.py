@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
 import sys
+from collections import defaultdict
 from random import sample
 from secrets import choice
-from collections import defaultdict
 
-from data_sets import (
-    MO_HOSPITALS, 
-    MO_SCHOOLS, 
-)   
+from data_sets import MO_HOSPITALS, MO_SCHOOLS
 from Person import Person
 
 categories = ["medical", "school"]
@@ -274,6 +271,7 @@ verbs = {
     ],
 }
 
+
 class WordBank:
     def __init__(self):
         self.complainer = Person()
@@ -290,7 +288,6 @@ class WordBank:
         self.girl = choice(words_for_girls)
         self.sport_action_verb = choice(sport_action_verbs)
 
-
     def get_mood_word(self):
         return choice(mood_words)
 
@@ -298,9 +295,7 @@ class WordBank:
         gender = gender or choice(["male", "female"])
         sport = sport or choice(sports)
         gendered_adj = choice(sports_descriptors[gender])
-        adj = choice(
-            [f" {s_d} " for s_d in sports_descriptors['generic']] + [" "]
-        )   
+        adj = choice([f" {s_d} " for s_d in sports_descriptors["generic"]] + [" "])
 
         return f"{gendered_adj}{adj}{sport} team"
 
