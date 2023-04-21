@@ -295,7 +295,7 @@ class WordBank:
 
     def get_sports_team(gender=None, sport=None):
         gender = gender or choice(["male", "female"])
-        sport  = sport or choice(sports)
+        sport = sport or choice(sports)
         gendered_adj = choice(sports_descriptors[gender])
         adj = choice(f" {sports_descriptors['generic']} " + [" "])
 
