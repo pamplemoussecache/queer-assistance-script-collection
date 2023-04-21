@@ -61,7 +61,7 @@ def gen_school_predicate(w=WordBank()):
 
 def outrage_clause(w=WordBank()):
     sentence_fragments = [
-        f"and I'm {w.get_mood_word()}{choice([' and {w.get_mood_word()', ''])} "])}"
+        f"and I'm {w.get_mood_word()}{choice([' and {w.get_mood_word()', ''])})"
     ]
 
 where = ["my"]

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Missouri Trans Help</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="http://fonts.googleapis.com/css?family=Annie Use Your Telescope:400,700"
+      rel="stylesheet"
+    />
+    <link
+      href="http://fonts.googleapis.com/css?family=Special Elite:400,700"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+  </head>
+  <body class="page-layout">
+    <h1 class="title">Want to help out queer and trans folk in Missouri?</h1>
+    <p>
+      Take some time to help out our trans friends in Missouri by generating a
+      submission below and copying the details into the
+      <a
+        href="https://ago.mo.gov/file-a-complaint/transgender-center-concerns"
+        target="_blank"
+      >
+        Missoury Transgender Center Concerns Form
+      </a>
+    </p>
+    <div class="python">
+      <py-config>
+        [[fetch]]
+        files = ["complaints_generator.py","data_sets/missouri_data.py","data_sets/missouri_school_list.py","Person.py"]
+      </py-config>
+      <py-script>  
+        from complaints_generator import hatespeech_complaint_generator
+        def runPython():
+            hatespeech_complaint_generator()
+      </py-script>
+      <py-repl>
+
+      </py-repl>
+    </div>
+    <div>
+      <button class="submission" type="button" id="button">
+        Generate Submission
+      </button>
+      <div class="outputContainer">
+        
+      </div>
+      
+    </div>
+
+    <a
+      href="https://ago.mo.gov/file-a-complaint/transgender-center-concerns"
+      target="_blank"
+      class="center_link"
+      >Missouri Trangender Center Concerns Form</a
+    >
+    <script src="./script.js"></script>
+
+    <footer class="footer">
+      <p>If you or a loved one is trans and needs support, check out the <a href="https://translifeline.org/about/">Trans Lifeline site</a> for more resources!</p>
+      <p>If you want to help make this form better, check out the <a href="https://github.com/pamplemoussecache/queer-assistance-script-collection">GitHub repository</a></p>
+      <p><a href="https://www.patreon.com/theeclecticlibrary">Click here</a> to support me doing this kind of work!</p>
+    </footer>
+  </body>
+</html>

@@ -18,11 +18,9 @@ const fakeJSONOut = {
 };
 
 const handlePython = function () {
-  console.log("test");
   const fakeJSON = JSON.stringify(fakeJSONOut);
   //get JSON (we'll use a fake object for now)
   const data = JSON.parse(fakeJSON);
-  console.log(data);
   //parse JSON into object
 
   //put object information into fields on html
