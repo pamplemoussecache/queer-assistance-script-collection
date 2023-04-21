@@ -24,19 +24,8 @@ medical_things = [
 
 locations = {
     "medical": ["practice", "hospital", "office", "clinic"],
-    "school": ["school", "class", "school system", "high school"],
+    "school": ["school", "school system", "school district", "college", "high school"],
 }
-for category in locations:
-    new_locations = []
-    for location in locations[category]:
-        data_set = MO_HOSPITALS if location == "hospital" else MO_SCHOOLS
-        print(location)
-        new_locations.append(f"{location} ({choice(data_set)})")
-        print(location)
-        print("~~~~")
-    locations[category] += new_locations
-    
-
 
 communication_verbs = ["told", "confessed", "said", "informed", "reported", "mentioned"]
 
@@ -315,3 +304,6 @@ class WordBank:
 
     def get_stance(self):
         return choice(opinion_words)
+    
+    def get_specific_location(self, location):
+        return choice(MO_HOSPITALS if location == "hospital" else MO_SCHOOLS)
