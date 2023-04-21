@@ -123,10 +123,6 @@ sports_descriptors = {
 }
 sport_action_verbs = ["play", "compete", "participate"]
 
-person = defaultdict(list)
-for school_class in sample(list(school_classes), 5):
-    person["school"].append(f"{school_class} teacher")
-
 
 words_for_guys = ["boy", "young man", "guy"]
 words_for_girls = ["girl", "young lady", "lady", "young woman"]
@@ -207,6 +203,9 @@ persons = {
         "boss",
     ],
 }
+for school_class in sample(list(school_classes), 5):
+    persons["school"].append(f"{school_class} teacher")
+    
 # TODO: Fix
 # for category in persons:
 #     for person in category:
