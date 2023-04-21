@@ -1,4 +1,4 @@
-states_of_denial = [
+STATES_OF_DENIAL = [
     "Past atrocities may be genuinely unknown: the clandestine torture cells and unmarked mass graves. But within these societies, people usually know most such things - and the government knows that they know. The culture of state terror is neither secret nor openly acknowledged. Information circulates - neighbors witness disappearances or kidnappings, torture victims return to their families, newspaper readers know exactly what was censored - but is simultaneously denied. Fear inside depends on knowledge AND uncertainty: who will be picked up next? State legitimacy outside depends on permanent official denial.",
     "If the perpetrator is your own government, this must touch your own identity and political role.",
     "Some knowledge was clear even in the years before the war. When the social exclusion of Jews, gypsies, the mentally disabled and homosexuals became routinized, the expulsion and extermination stages were in sight, even apparently unconnected arms of government and business became involved... Doctors, lawyers, and other professionals played supporting roles.",

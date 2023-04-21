@@ -1,4 +1,4 @@
-mo_hospitals = [
+MO_HOSPITALS = [
     "Advanced Healthcare Med Center",
     "Hannibal Regional Hospital",
     "NW Missouri Psych Rehab Center",

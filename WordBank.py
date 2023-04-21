@@ -2,8 +2,12 @@
 import sys
 from random import sample
 from secrets import choice
+from collections import defaultdict
 
-from data_sets import mo_hospitals, mo_schools, ncte_mo_state_report, states_of_denial
+from data_sets import (
+    MO_HOSPITALS, 
+    MO_SCHOOLS, 
+)   
 from Person import Person
 
 categories = ["medical", "school"]
@@ -27,7 +31,7 @@ locations = {
 }
 for category in locations:
     for location in category:
-        data_set = mo_hospitals if location == "hospital" else mo_schools
+        data_set = MO_HOSPITALS if location == "hospital" else MO_SCHOOLS
         locations[category].append(f"{location} ({choice(data_set)})")
 
 
@@ -122,6 +126,7 @@ sports_descriptors = {
 }
 sport_action_verbs = ["play", "compete", "participate"]
 
+person = defaultdict(list)
 for school_class in sample(list(school_classes), 5):
     person["school"].append(f"{school_class} teacher")
 
@@ -153,162 +158,160 @@ mood_words = [
     "incensed",
 ]
 
+opinion_words = ["against", "in support of"]
+
+persons = {
+    "medical": [
+        "patient",
+        "doctor",
+        "physician",
+        "nurse practitioner",
+        "medical provider",
+        "GP",
+        "PCP",
+    ],
+    "school": [
+        "student",
+        "teacher",
+        "administrator",
+        "principal",
+        "teaching aid",
+        "school nurse",
+    ],
+    "child": [
+        "son",
+        "daughter",
+        "kid",
+        "child",
+        "nephew",
+        "niece",
+        "nibling",
+        "granddaughter",
+        "grandchild",
+        "grandson",
+    ],
+    "community": [
+        "neighbor",
+        "pastor",
+        "teacher",
+        "coach",
+        "cousin",
+        "aunt",
+        "uncle",
+        "babysitter",
+        "dentist",
+        "doctor",
+        "barber",
+        "hairdresser",
+        "tutor",
+        "music teacher",
+        "dance instructor",
+        "coworker",
+        "boss",
+    ],
+}
+# TODO: Fix
+# for category in persons:
+#     for person in category:
+#         persons[category].append(
+#             f"the {person} of my {choice(persons['community'])}"
+#         )
+#         persons[category].append(f"my {choice(choice(persons))}'s {person}")
+
+verbs = {
+    "action": [
+        "skydive",
+        "scuba dive",
+        "bungee jump",
+        "learn to surf",
+        "climb a mountain",
+        "go zorbing",
+        "take a trapeze class",
+        "take a survival course",
+        "do acroyoga",
+        "learn archery",
+        "take a fencing class",
+        "try parkour",
+        "learn circus arts",
+        "go horseback riding",
+        "learn to juggle",
+        "try paddleboarding",
+        "do tai chi",
+        "take a yoga class",
+        "try aerial silks",
+        "watch TV shows",
+        "play video games",
+        "read comics",
+        "build a sandcastle",
+        "knit a scarf",
+        "write love letters",
+        "try new foods",
+        "explore a city",
+        "attend concerts",
+        "play board games",
+        "watch movies",
+        "write poetry",
+        "attend a stand-up comedy show",
+        "solve puzzles",
+        "paint by numbers",
+        "listen to music",
+        "build with Lego bricks",
+        "collect stamps",
+        "play with slime",
+        "make balloon animals",
+        "participate in a flash mob",
+        "collect rocks",
+        "build the Statue of Liberty with lincoln logs",
+    ],
+    "communication": [
+        "told",
+        "confessed to",
+        "said",
+        "informed",
+        "reported to",
+        "mentioned to",
+        "shared with",
+    ],
+}
 
 class WordBank:
     def __init__(self):
-        complainer = Person()
-        child = Person("child")
-        target = Person()
-        location = self.get_location()
-        action = choice(verbs)
-        school_class = choice(school_classes)
-        sport = choice(sports)
-        sports_descriptor = choice(sports_descriptors)
-        school_class = choice(school_classes)
-        verb_phrase = choice(verbs)
-        guy = choice(words_for_guys)
-        girl = choice(words_for_girls)
-        sport_action_verb = choice(sport_action_verbs)
+        self.complainer = Person()
+        self.child = Person("child")
+        self.target = Person()
+        self.location = self.get_location(choice(["medical", "school"]))
+        self.action = choice(verbs["action"])
+        self.school_class = choice(school_classes)
+        self.sport = choice(sports)
+        self.sports_descriptor = choice(sports_descriptors["generic"])
+        self.school_class = choice(school_classes)
+        self.verb_phrase = choice(verbs[choice(["action", "communication"])])
+        self.guy = choice(words_for_guys)
+        self.girl = choice(words_for_girls)
+        self.sport_action_verb = choice(sport_action_verbs)
 
-    opinion_words = ["against", "in support of"]
 
-    persons = {
-        "medical": [
-            "patient",
-            "doctor",
-            "physician",
-            "nurse practitioner",
-            "medical provider",
-            "GP",
-            "PCP",
-        ],
-        "school": [
-            "student",
-            "teacher",
-            "administrator",
-            "principal",
-            "teaching aid",
-            "school nurse",
-        ],
-        "child": [
-            "son",
-            "daughter",
-            "kid",
-            "child",
-            "nephew",
-            "niece",
-            "nibling",
-            "granddaughter",
-            "grandchild",
-            "grandson",
-        ],
-        "community": [
-            "neighbor",
-            "pastor",
-            "teacher",
-            "coach",
-            "cousin",
-            "aunt",
-            "uncle",
-            "babysitter",
-            "dentist",
-            "doctor",
-            "barber",
-            "hairdresser",
-            "tutor",
-            "music teacher",
-            "dance instructor",
-            "coworker",
-            "boss",
-        ],
-    }
-    for category in persons:
-        for person in category:
-            persons[category].append(
-                f"the {person} of my {choice(persons['community'])}"
-            )
-            persons[category].append(f"my {choice(choice(persons))}'s {person}")
-
-    locations = {
-        "medical": ["practice", "hospital", "office", "clinic"],
-        "school": ["school", "class", "school system", "high school"],
-    }
-
-    verbs = {
-        "action": [
-            "skydive",
-            "scuba dive",
-            "bungee jump",
-            "learn to surf",
-            "climb a mountain",
-            "go zorbing",
-            "take a trapeze class",
-            "take a survival course",
-            "do acroyoga",
-            "learn archery",
-            "take a fencing class",
-            "try parkour",
-            "learn circus arts",
-            "go horseback riding",
-            "learn to juggle",
-            "try paddleboarding",
-            "do tai chi",
-            "take a yoga class",
-            "try aerial silks",
-            "watch TV shows",
-            "play video games",
-            "read comics",
-            "build a sandcastle",
-            "knit a scarf",
-            "write love letters",
-            "try new foods",
-            "explore a city",
-            "attend concerts",
-            "play board games",
-            "watch movies",
-            "write poetry",
-            "attend a stand-up comedy show",
-            "solve puzzles",
-            "paint by numbers",
-            "listen to music",
-            "build with Lego bricks",
-            "collect stamps",
-            "play with slime",
-            "make balloon animals",
-            "participate in a flash mob",
-            "collect rocks",
-            "build the Statue of Liberty with lincoln logs",
-        ],
-        "communication": [
-            "told",
-            "confessed to",
-            "said",
-            "informed",
-            "reported to",
-            "mentioned to",
-            "shared with",
-        ],
-    }
-
-    def get_mood_word():
+    def get_mood_word(self):
         return choice(mood_words)
 
-    def get_sports_team(gender=None, sport=None):
+    def get_sports_team(self, gender=None, sport=None):
         gender = gender or choice(["male", "female"])
         sport = sport or choice(sports)
         gendered_adj = choice(sports_descriptors[gender])
-        adj = choice(f" {sports_descriptors['generic']} " + [" "])
+        adj = choice(
+            [f" {s_d} " for s_d in sports_descriptors['generic']] + [" "]
+        )   
 
         return f"{gendered_adj}{adj}{sport} team"
 
     def get_person(self, category):
-        return choice(self.persons[category])
+        return choice(persons[category])
 
     def get_location(self, category):
         return choice(locations[category])
 
     def get_verb(self, type_of_verb):
-        return choice(self.verbs[type_of_verb])
+        return choice(verbs[type_of_verb])
 
     def get_stance(self):
-        return choice(self.opinion_words)
+        return choice(opinion_words)

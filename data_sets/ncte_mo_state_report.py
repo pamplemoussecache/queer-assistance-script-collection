@@ -1,4 +1,4 @@
-ncte_mo = [
+NCTE_MO_STATE_REPORT = [
     "27\% of trans Missouri residents live in poverty",
     "74\% of K-12 students who are trans in Missouri experienced harassment, discrimination, physical assault, and/or sexual assault because of how people think about trans kids",
     "for kids in Missouri who are out as trans before 12th grade, 13\% are sexually assaulted because they're trans",
