@@ -82,7 +82,7 @@ class Person:
     
     def to_json(self):
         p = {"first_name": self.first_name, "last_name": self.last_name, "address": dumps(self.address), "email": self.email, "phone_number": self.phone_number}
-        return dumps(self.__dict__)
+        return p
 
     def print_stats(self):
         print(f"First name: {self.first_name}\n")
