@@ -7,8 +7,12 @@ from Person import Person
 from WordBank import WordBank, categories, location, person
 
 
-def capitalize_first_letter(word):
-    return " ".join(word.title() for word in s.split())
+def capitalize_first_letter(phrase):
+    phrase_words = phrase.split()
+    capitalized_phrase = phrase_words[0].title()
+    for w in phrase_words[1:]:
+        capitalized_phrase += f" {w}"
+    return capitalized_phrase
 
 
 class Complaint:
@@ -17,18 +21,18 @@ class Complaint:
         self.complaint = ""
         self.num_sentences = num_sentences or randint(1, 4)
         self.category = category or choice(categories)
-        self.child = "My child"  # TODO: randomize
+        self.child = "my child"  # TODO: randomize
 
         for i in range(self.num_sentences):
             if self.num_sentences == 1:
-                self.complaint += self.get_punchy_sentence()
+                self.complaint += capitalize_first_letter(self.get_punchy_sentence())
             elif i == 0:
-                self.complaint += self.get_starting_sentence()
+                self.complaint += capitalize_first_letter(self.get_starting_sentence())
             # TODO: Write
             # elif i == (self.num_sentences - 1):
             #     self.complaint += self.get_ending_sentence()
             else:
-                self.complaint += self.get_sentence()
+                self.complaint += capitalize_first_letter(self.get_sentence())
 
     def __str__(self):
         return f"{self.complaint}"
@@ -98,7 +102,7 @@ class Complaint:
         communicated_to = w.get_verb("communication")
         child = self.child
         community_member = w.get_person("community")
-        target = choice([w.get_person("school"), w.get_location("school")])
+        target = w.get_person("school")
         action = self.get_school_predicate()
         i_feel = self.get_mood_fragment()
         about_effects = self.get_effect_fragment("school")
@@ -124,11 +128,11 @@ class Complaint:
         opinion = w.get_stance()
 
         options = [
-            f"Also, {i_feel} that the Attorney General's office should be taking a harder stance {opinion} {target} doing this kind of thing.",
-            f"I emailed {target} about my feelings but they were unresponsive.",
-            f"We the parents of this community are {w.get_mood_word()} about the lack of oversight from the {w.get_person('school')}.",
-            f"Is it even legal for {target}s to make that decision without consulting the parents?",
-            f"The {target} also {self.get_effect_fragment('school')}.",
+            f" Also, {i_feel} that the Attorney General's office isn't taking a stronger stance {opinion} {target} doing this kind of thing.",
+            f" I emailed {target} about my feelings but they were unresponsive.",
+            f" We the parents of this community are {w.get_mood_word()} about the lack of oversight from the {w.get_person('school')}.",
+            f" Is it even legal for {target}s to make that decision without consulting the parents?",
+            f" The {target} also {self.get_effect_fragment('school')}.",
         ]
         return choice(options)
 
@@ -136,11 +140,11 @@ class Complaint:
         w = self.w
         sentences = (
             [
-                f"Did you know that {choice(NCTE_MO_STATE_REPORT)}?",
-                f"I expect your call at {w.complainer.phone_number}.",
-                f"What is the Missouri government going to do about the fact that?",
-                f"This is a violation of the Missouri state law and I will not stand for it.",
-                f"I can't believe that our government is standing for this.",
+                f" Did you know that {choice(NCTE_MO_STATE_REPORT)}?",
+                f" I expect your call at {w.complainer.phone_number}.",
+                f" What is the Missouri government going to do about the fact that?",
+                f" This is a violation of the Missouri state law and I will not stand for it.",
+                f" I can't believe that our government is standing for this.",
             ]
             + NCTE_MO_STATE_REPORT
             + STATES_OF_DENIAL

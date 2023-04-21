@@ -27,9 +27,15 @@ locations = {
     "school": ["school", "class", "school system", "high school"],
 }
 for category in locations:
-    for location in category:
+    new_locations = []
+    for location in locations[category]:
         data_set = MO_HOSPITALS if location == "hospital" else MO_SCHOOLS
-        locations[category].append(f"{location} ({choice(data_set)})")
+        print(location)
+        new_locations.append(f"{location} ({choice(data_set)})")
+        print(location)
+        print("~~~~")
+    locations[category] += new_locations
+    
 
 
 communication_verbs = ["told", "confessed", "said", "informed", "reported", "mentioned"]
