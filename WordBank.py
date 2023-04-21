@@ -1,18 +1,12 @@
 #!/usr/bin/env python3
-import sys
 from collections import defaultdict
-from random import sample
 from secrets import choice
 
-from data_sets import MO_HOSPITALS, MO_SCHOOLS, verbs, school_classes, sports, sports_descriptors, words_for_guys, words_for_girls, sport_action_verbs, mood_words, persons, locations, opinion_words
-
-from Person import Person
+from data_sets import MO_HOSPITALS, MO_SCHOOLS
+from data_sets.words import verbs, school_classes, sports, sports_descriptors, words_for_guys, words_for_girls, sport_action_verbs, mood_words, persons, locations, opinion_words, categories
 
 class WordBank:
     def __init__(self):
-        #self.complainer = Person()
-        #self.child = Person("child")
-        #self.target = Person()
         self.location = self.get_location(choice(["medical", "school"]))
         self.action = choice(verbs["action"])
         self.school_class = choice(school_classes)
@@ -36,8 +30,7 @@ class WordBank:
         return f"{gendered_adj}{adj}{sport} team"
 
     def get_person(self, category=None):
-        if category == None:
-            category = choice(category)
+        category = category or choice(categories)
         return choice(persons[category])
 
     def get_location(self, category):

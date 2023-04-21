@@ -1,28 +1,22 @@
 #!/usr/bin/env python3
 from random import randint, sample
 from secrets import choice
+from json import dumps
+from Person import Person
 
 from data_sets import MO_HOSPITALS, MO_SCHOOLS, NCTE_MO_STATE_REPORT, STATES_OF_DENIAL
-from Person import Person
-from WordBank import WordBank, categories
-
-
-def capitalize_first_letter(phrase):
-    phrase_words = phrase.split()
-    capitalized_phrase = phrase_words[0][0].upper() + phrase_words[0][1:]
-    for w in phrase_words[1:]:
-        capitalized_phrase += f" {w}"
-    return capitalized_phrase
-
+from data_sets.words import categories
+from WordBank import WordBank
+from utils import capitalize_first_letter
 
 class Complaint:
     def __init__(self, category=None, num_sentences=None):
         self.w = WordBank()
-        self.complainer = self.w.complainer()
+        self.complainer = Person()
         self.complaint_text = ""
         self.num_sentences = num_sentences or randint(1, 4)
         self.category = category or choice(categories)
-        self.child = "my child"  # TODO: randomize
+        self.child = Person("child")
 
         for i in range(self.num_sentences):
             if self.num_sentences == 1:
@@ -36,6 +30,9 @@ class Complaint:
 
     def __str__(self):
         return f"{self.complaint_text}"
+    
+    def to_json(self):
+        return dumps({"complainer": self.complainer, "complaint_text": self.complaint_text})
 
     def get_mood_fragment(self):
         w = self.w
@@ -107,11 +104,11 @@ class Complaint:
         about_effects = self.get_effect_fragment("school")
 
         options = [
-            f"{child} {communicated_to} me that their {target} {action}.",
-            f"{child} {communicated_to} me that their {target} {action} and {i_feel}.",
-            f"{child} {communicated_to} me that their {target} {action} and {i_feel} {about_effects}.",
-            f"{i_feel} because my {community_member} told me that {child}'s {target} {action}.",
-            f"{i_feel} because {child} {communicated_to} me that the {target} {action}.",
+            f"{child.role} {communicated_to} me that their {target} {action}.",
+            f"{child.role} {communicated_to} me that their {target} {action} and {i_feel}.",
+            f"{child.role} {communicated_to} me that their {target} {action} and {i_feel} {about_effects}.",
+            f"{i_feel} because my {community_member} told me that {Person('child', 'referring_pronoun').role}'s {target} {action}.",
+            f"{i_feel} because {child.role} {communicated_to} me that the {target} {action}.",
         ]
         return choice(options)
 
@@ -134,8 +131,8 @@ class Complaint:
         w = self.w
         sentences = [
             f"Did you know that {choice(NCTE_MO_STATE_REPORT)}?",
-            f"I expect your call at {w.complainer.phone_number}.",
-            f"What is the Missouri government going to do about the fact that {w.get_person('child')} are {w.get_verb('action')}?",
+            f"I expect your call at {self.complainer.phone_number}.",
+            f"What is the Missouri government going to do about the fact that {w.get_person('child')}s are {w.get_verb('action')}?",
             f"This is a violation of the Missouri state law and I will not stand for it.",
             f"I can't believe that our government is standing for this.",
         ] + NCTE_MO_STATE_REPORT
@@ -146,7 +143,7 @@ class Complaint:
         sentences = (
             [
                 f"Did you know that {choice(NCTE_MO_STATE_REPORT)}?",
-                f"What is the Missouri government going to do about the fact that {w.get_person('child')} are {w.get_verb('action')}?",
+                f"What is the Missouri government going to do about the fact that {w.get_person('child')}s are {w.get_verb('action')}?",
                 f"This is a violation of the Missouri state law and I will not stand for it.",
                 f"I can't believe that our government is standing for this.",
             ]

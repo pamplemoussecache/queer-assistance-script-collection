@@ -2,17 +2,18 @@
 import csv
 from secrets import choice
 from random import randint
+from json import dumps
 
 import names
 import random_address
 
 from WordBank import WordBank
-from data_sets import categories, states
+from data_sets.words import categories, states
 
 
 def make_email(first_name, last_name):
     email_endings = ["@hotmail.com", "@yahoo.com", "@gmail.com", "@aol.com"]
-    email_end = secrets.choice(email_endings)
+    email_end = choice(email_endings)
 
     assembled_email = ""
 
@@ -52,7 +53,7 @@ missouri_data = list(
 
 
 class Person:
-    def __init__(self, role_type=None):
+    def __init__(self, role_type=None, referring_pronoun="my"):
         self.word_bank = WordBank()
         self.first_name = names.get_first_name()
         self.last_name = names.get_last_name()
@@ -60,23 +61,28 @@ class Person:
             "street": random_address.real_random_address()["address1"]
         } | choice(missouri_data)
         self.email = make_email(self.first_name, self.last_name)
-        self.phone_number = make_phone_number(choice(states))
-        self.role = self.assign_role(role_type)
+        self.phone_number = choice(["", make_phone_number(choice(states))])
+        self.role = self.assign_role(role_type, referring_pronoun)
+        self.referring_pronoun = referring_pronoun
 
     def assign_role(self, role_type=None, pronoun="my"):
         role_type = role_type or choice(categories)
         word_bank = self.word_bank
         
         optionA = f"{pronoun}"
-        optionB = f"the {word_bank.get_person(role_type)} of {pronoun}"
+        optionB = f"the {word_bank.get_person(role_type)} of {pronoun} {word_bank.get_person()}"
         
-        for i in range(randint(3)):
+        for i in range(randint(0,3)):
             optionA += f" {word_bank.get_person()}'s"
-            optionB += f" {word_bank.get_person()}"
+            optionB += f"of {pronoun} {word_bank.get_person()}"
         
         optionA += f" {word_bank.get_person(role_type)}"
 
-        return choice([optionA, optionB])
+        self.role = choice([optionA, optionB])
+    
+    def to_json(self):
+        p = {"first_name": self.first_name, "last_name": self.last_name, "address": dumps(self.address), "email": self.email, "phone_number": self.phone_number}
+        return dumps(self.__dict__)
 
     def print_stats(self):
         print(f"First name: {self.first_name}\n")
