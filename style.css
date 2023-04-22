@@ -13,7 +13,6 @@ Fonts: Special Elite for headers and Annie Use Your telescope for body
 body,
 html {
   margin: 0;
-  padding: 15px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--color4);
@@ -68,6 +67,7 @@ a:hover {
   text-align: center;
   margin: auto;
   padding: 15px 10px;
+  margin-top: 15px;
 }
 
 .page-layout {
@@ -78,7 +78,6 @@ a:hover {
   margin: 0;
   padding: 0;
   min-width: fit-content;
-  overflow: hidden;
   display: grid;
   width: 75%;
   margin: auto;
@@ -115,4 +114,20 @@ div {
   margin: auto;
   padding: 15px;
   border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+footer {
+  /* position: fixed; */
+  width: 100vw;
+  display: flex;
+  bottom: 0;
+  left: 0;
+  background-color: var(--color2);
+  justify-content: space-evenly;
+}
+
+footer,
+p {
+  font-size: 1rem;
 }
