@@ -2,9 +2,14 @@
 from random import randint, sample
 from secrets import choice
 
-from data_sets import MO_HOSPITALS, MO_SCHOOLS, NCTE_MO_STATE_REPORT, STATES_OF_DENIAL
-from Person import Person
-from WordBank import WordBank, categories
+from complaints_generator.data_sets import (
+    MO_HOSPITALS,
+    MO_SCHOOLS,
+    NCTE_MO_STATE_REPORT,
+    STATES_OF_DENIAL,
+)
+from complaints_generator.Person import Person
+from complaints_generator.WordBank import WordBank, categories
 
 
 def capitalize_first_letter(phrase):

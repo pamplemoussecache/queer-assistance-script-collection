@@ -1,6 +1,6 @@
 import unittest
 
-import complaints_generator
+from complaints_generator import complaints_generator
 
 FUZZ_ITERATIONS = 100
 
