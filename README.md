@@ -15,3 +15,14 @@ pre-commit install --hook-type pre-push
 ```
 
 If you ever want to run the checks ad-hoc, you can run `pre-commit run --all-files`.
+
+Note that this is run as a Github Action each time your code is pushed.
+
+#### Run the tests
+To run the test suite, run this command in your Terminal from the root directory:
+
+```bash
+python -m unittest discover -s tests
+```
+
+Note that this is run as a Github Action each time your code is pushed.
