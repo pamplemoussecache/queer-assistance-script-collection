@@ -30,7 +30,7 @@ class WordBank:
         return f"{gendered_adj}{adj}{sport} team"
 
     def get_person(self, category=None):
-        category = category or choice(categories)
+        category = choice(categories) if category not in categories else category
         return choice(persons[category])
 
     def get_location(self, category):

@@ -32,7 +32,7 @@ class Complaint:
         return f"{self.complaint_text}"
     
     def to_json(self):
-        return dumps({"complainer": self.complainer, "complaint_text": self.complaint_text})
+        return dumps({"complainer": self.complainer.to_json(), "complaint_text": self.complaint_text})
 
     def get_mood_fragment(self):
         w = self.w
@@ -102,12 +102,12 @@ class Complaint:
         action = self.get_school_predicate()
         i_feel = self.get_mood_fragment()
         about_effects = self.get_effect_fragment("school")
-
+        
         options = [
             f"{child.role} {communicated_to} me that their {target} {action}.",
             f"{child.role} {communicated_to} me that their {target} {action} and {i_feel}.",
             f"{child.role} {communicated_to} me that their {target} {action} and {i_feel} {about_effects}.",
-            f"{i_feel} because my {community_member} told me that {Person('child', 'referring_pronoun').role}'s {target} {action}.",
+            f"{i_feel} because my {community_member} told me that {Person('child', 'their').role}'s {target} {action}.",
             f"{i_feel} because {child.role} {communicated_to} me that the {target} {action}.",
         ]
         return choice(options)
@@ -153,4 +153,5 @@ class Complaint:
         return choice(sentences)
 
 
-print(Complaint())
+print(Complaint().to_json())
+

@@ -27,7 +27,7 @@ def make_email(first_name, last_name):
     else:
         assembled_email = first_name + last_name + str(randint(0, 9)) + email_end
 
-    return assembled_email
+    return assembled_email.lower()
 
 
 def make_phone_number(state="MO"):
@@ -53,7 +53,7 @@ missouri_data = list(
 
 
 class Person:
-    def __init__(self, role_type=None, referring_pronoun="my"):
+    def __init__(self, role_type="", referring_pronoun="my"):
         self.word_bank = WordBank()
         self.first_name = names.get_first_name()
         self.last_name = names.get_last_name()
@@ -65,20 +65,22 @@ class Person:
         self.role = self.assign_role(role_type, referring_pronoun)
         self.referring_pronoun = referring_pronoun
 
-    def assign_role(self, role_type=None, pronoun="my"):
+    def assign_role(self, role_type, referring_word="my"):
         role_type = role_type or choice(categories)
         word_bank = self.word_bank
         
-        optionA = f"{pronoun}"
-        optionB = f"the {word_bank.get_person(role_type)} of {pronoun} {word_bank.get_person()}"
+        optionA = f"{referring_word}"
+        optionB = f"the {word_bank.get_person(role_type)}"
         
         for i in range(randint(0,3)):
             optionA += f" {word_bank.get_person()}'s"
-            optionB += f"of {pronoun} {word_bank.get_person()}"
+            if (i > 0):
+                optionB += f" of the {word_bank.get_person()}"
         
         optionA += f" {word_bank.get_person(role_type)}"
+        optionB += f" of {referring_word} {word_bank.get_person(role_type)}"
 
-        self.role = choice([optionA, optionB])
+        return choice([optionA, optionB])
     
     def to_json(self):
         p = {"first_name": self.first_name, "last_name": self.last_name, "address": dumps(self.address), "email": self.email, "phone_number": self.phone_number}
@@ -93,3 +95,4 @@ class Person:
         print(f"Zip code: {self.address['zip code']}\n")
         print(f"email address: {make_email(self.first_name, self.last_name).lower()}\n")
         print(f"phone number: {make_phone_number()}\n")
+        print(f"role: {self.role}")
