@@ -46,7 +46,9 @@ def make_phone_number(state="MO"):
 
 
 missouri_data = list(
-    csv.DictReader(open("data_sets/Missouri_Zip_Codes_by_County_City.csv"))
+    csv.DictReader(
+        open("complaints_generator/data_sets/Missouri_Zip_Codes_by_County_City.csv")
+    )
 )
 
 

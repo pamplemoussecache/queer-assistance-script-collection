@@ -4,8 +4,8 @@ from collections import defaultdict
 from random import sample
 from secrets import choice
 
-from data_sets import MO_HOSPITALS, MO_SCHOOLS
-from Person import Person
+from complaints_generator.data_sets import MO_HOSPITALS, MO_SCHOOLS
+from complaints_generator.Person import Person
 
 categories = ["medical", "school"]
 
